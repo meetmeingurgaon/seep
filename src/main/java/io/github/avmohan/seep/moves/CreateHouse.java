@@ -1,21 +1,21 @@
 package io.github.avmohan.seep.moves;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.collect.ImmutableSet;
 import io.github.avmohan.seep.cards.Card;
-import io.github.avmohan.seep.table.LooseCard;
+import io.github.avmohan.seep.playables.LooseCard;
+import org.pcollections.PSet;
 
 import java.util.Objects;
 
 public final class CreateHouse extends Move {
-    private final ImmutableSet<LooseCard> looseCards;
+    private final PSet<LooseCard> looseCards;
 
-    public CreateHouse(Card card, ImmutableSet<LooseCard> looseCards) {
+    public CreateHouse(Card card, PSet<LooseCard> looseCards) {
         super(card);
         this.looseCards = looseCards;
     }
 
-    public ImmutableSet<LooseCard> getLooseCards() {
+    public PSet<LooseCard> getLooseCards() {
         return looseCards;
     }
 

@@ -1,8 +1,12 @@
-package io.github.avmohan.seep.table;
+package io.github.avmohan.seep.playables;
 
 import io.github.avmohan.seep.cards.Card;
 import io.github.avmohan.seep.cards.Rank;
+import org.pcollections.HashTreePSet;
+import org.pcollections.PCollection;
+import org.pcollections.PSet;
 
+import java.util.Collections;
 import java.util.Objects;
 
 public final class LooseCard implements Playable {
@@ -15,6 +19,11 @@ public final class LooseCard implements Playable {
     @Override
     public Rank getRank() {
         return card.getRank();
+    }
+
+    @Override
+    public PCollection<Card> getCards() {
+        return HashTreePSet.singleton(card);
     }
 
     @Override

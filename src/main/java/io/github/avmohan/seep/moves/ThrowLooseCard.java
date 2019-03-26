@@ -5,9 +5,9 @@ import io.github.avmohan.seep.cards.Card;
 
 import java.util.Objects;
 
-public final class ThrowLoose extends Move {
+public final class ThrowLooseCard extends Move {
 
-    public ThrowLoose(Card card) {
+    public ThrowLooseCard(Card card) {
         super(card);
     }
 
@@ -15,7 +15,7 @@ public final class ThrowLoose extends Move {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ThrowLoose that = (ThrowLoose) o;
+        ThrowLooseCard that = (ThrowLooseCard) o;
         return Objects.equals(getCard(), that.getCard());
     }
 

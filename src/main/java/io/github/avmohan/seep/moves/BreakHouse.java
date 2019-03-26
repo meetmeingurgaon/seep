@@ -1,29 +1,31 @@
 package io.github.avmohan.seep.moves;
 
 import com.google.common.base.MoreObjects;
-import com.google.common.collect.ImmutableSet;
 import io.github.avmohan.seep.cards.Card;
-import io.github.avmohan.seep.cards.Rank;
-import io.github.avmohan.seep.table.LooseCard;
+import io.github.avmohan.seep.cards.CardUtils;
+import io.github.avmohan.seep.playables.House;
 
 import java.util.Objects;
 
+/**
+ * Break an unsealed house.
+ */
 public final class BreakHouse extends Move {
-    private final Rank houseRank;
-    private final ImmutableSet<LooseCard> looseCards;
+    private final House house;
 
-    public BreakHouse(Card card, Rank houseRank, ImmutableSet<LooseCard> looseCards) {
+    public BreakHouse(Card card, House house) {
         super(card);
-        this.houseRank = houseRank;
-        this.looseCards = looseCards;
+        if (house.isSealed()) {
+            throw new IllegalStateException("Sealed house cannot be broken");
+        }
+        if (CardUtils.getRankSum(card.getRank(), house.getRank()) > 13) {
+            throw new IllegalArgumentException("House rank overflows");
+        }
+        this.house = house;
     }
 
-    public ImmutableSet<LooseCard> getLooseCards() {
-        return looseCards;
-    }
-
-    public Rank getHouseRank() {
-        return houseRank;
+    public House getHouse() {
+        return house;
     }
 
     @Override
@@ -32,21 +34,19 @@ public final class BreakHouse extends Move {
         if (o == null || getClass() != o.getClass()) return false;
         BreakHouse that = (BreakHouse) o;
         return Objects.equals(getCard(), that.getCard()) &&
-                getHouseRank() == that.getHouseRank() &&
-                Objects.equals(getLooseCards(), that.getLooseCards());
+                getHouse() == that.getHouse();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCard(), getHouseRank(), getLooseCards());
+        return Objects.hash(getCard(), getHouse());
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
                 .add("card", getCard())
-                .add("houseRank", houseRank)
-                .add("looseCards", looseCards)
+                .add("house", house)
                 .toString();
     }
 }
